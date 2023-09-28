@@ -1,15 +1,19 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { CgProfile } from "react-icons/cg";
+import {AiOutlineLogin} from 'react-icons/ai'
+import {TbLogin, TbLogin2} from 'react-icons/tb'
 
 const Navbar = () => {
   let location = useLocation();
-  const navigate=useNavigate()
-
- //logout
-  const handleLogout=()=>{
-    localStorage.removeItem('token')
-    navigate("/login")
-  }
+  const navigate = useNavigate();
+  //logout
+  const handleLogout = () => {
+    navigate("/login");
+    localStorage.removeItem("token");
+    localStorage.removeItem("name");
+    localStorage.removeItem("email");
+  };
 
   return (
     <>
@@ -54,14 +58,31 @@ const Navbar = () => {
                 </Link>
               </li>
             </ul>
-            {!localStorage.getItem('token') ? <form className="d-flex" role="search">
-                <Link className="btn btn-primary mx-1" to="/login" role="button">
-                  Login
+            {!localStorage.getItem("token") ? (
+              <form className="d-flex">
+                <Link
+                  className="nav-link active mx-1"
+                  to="/login"
+                >
+                  {<TbLogin2 color="green" size={35}/>}
                 </Link>
-                <Link className="btn btn-primary mx-1" to="/signup" role="button">
-                  Signup
+                <Link
+                  className="nav-link active mx-1"
+                  to="/signup"
+                >
+                  {<TbLogin color="green" size={35}/>}
                 </Link>
-            </form> : <button className="btn btn-primary" onClick={handleLogout}>Logout</button>}
+              </form>
+            ) : (
+              <>
+                <Link className="nav-link active mx-2" to="/profile">
+                  {<CgProfile color="blue" size={35} />}
+                </Link>
+                <Link className="nav-link active mx-2" onClick={handleLogout}>
+                {<AiOutlineLogin color="red" size={35}/>}
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </nav>

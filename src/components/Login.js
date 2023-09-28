@@ -22,10 +22,11 @@ const Login = (props) => {
       }),
     });
     const json = await response.json();
-    console.log(json);
     if (json.success) {
       // redirect
       localStorage.setItem("token", json.authtoken);
+      localStorage.setItem("name", json.user.name);
+      localStorage.setItem("email", json.user.email);
       navigate("/");
       props.showAlert(`${json.message}`, "success");
     } else {
